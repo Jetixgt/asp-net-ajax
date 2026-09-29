@@ -111,3 +111,34 @@ border-radius: 12px;
 text-align: left;
 white-space: pre-line;
 }
+.group-label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.result[hidden] {
+    display: none;
+}
+.result {
+    position: relative;
+    padding-right: 45px;
+}
+
+.result[hidden] {
+    display: none;
+}
+
+.hide-result {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    cursor: pointer;
+    color: #666;
+}
+
+.hide-result:hover {
+    color: #000;
+}

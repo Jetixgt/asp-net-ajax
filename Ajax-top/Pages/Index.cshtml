@@ -1,0 +1,166 @@
+﻿@page
+@model IndexModel
+
+<div class="form-container">
+    <h1>Анкета студента</h1>
+    <p class="description">Введите свои данные</p>
+
+    <form id="studentForm" method="post">
+        <div class="form-group">
+            <label for="name">Имя-фамилия:</label>
+            <input type="text" id="name" name="Name"
+                   placeholder="Введите имя" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Номер телефона:</label>
+            <input type="tel" id="phone" name="Phone"
+                   placeholder="+7" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="Email"
+                   placeholder="email@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <p class="group-label">Специальность:</p>
+
+            <div class="speciality">
+                <input type="radio" name="Speciality"
+                       value="Программирование" id="dev" required>
+                <label for="dev">Программирование</label>
+                <br>
+
+                <input type="radio" name="Speciality"
+                       value="Дизайн" id="design">
+                <label for="design">Дизайн</label>
+                <br>
+
+                <input type="radio" name="Speciality"
+                       value="Маркетинг" id="marketing">
+                <label for="marketing">Маркетинг</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="course">Курс:</label>
+            <select name="Course" id="course" required>
+                <option value="" selected disabled>Выберите курс</option>
+                <option value="1 курс">1 курс</option>
+                <option value="2 курс">2 курс</option>
+                <option value="3 курс">3 курс</option>
+                <option value="4 курс">4 курс</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="city">Город:</label>
+            <select name="City" id="city" required>
+                <option value="" selected disabled>Выберите город</option>
+                <option value="Москва">Москва</option>
+                <option value="Санкт-Петербург">Санкт-Петербург</option>
+                <option value="Сочи">Сочи</option>
+                <option value="Казань">Казань</option>
+                <option value="Новосибирск">Новосибирск</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="mainLanguage">Основной язык программирования:</label>
+            <select name="MainLanguage" id="mainLanguage" required>
+                <option value="" selected disabled>Выберите язык</option>
+                <option value="C#">C#</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="C++">C++</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate">Дата рождения:</label>
+            <input type="date" id="birthDate" name="BirthDate" required>
+        </div>
+
+        <div class="form-group">
+            <p class="group-label">Технологии:</p>
+
+            <div class="speciality">
+                <input type="checkbox" name="Technologies"
+                       value="HTML/CSS" id="html">
+                <label for="html">HTML/CSS</label>
+                <br>
+
+                <input type="checkbox" name="Technologies"
+                       value="JavaScript" id="js">
+                <label for="js">JavaScript</label>
+                <br>
+
+                <input type="checkbox" name="Technologies"
+                       value="C#" id="csharp">
+                <label for="csharp">C#</label>
+                <br>
+
+                <input type="checkbox" name="Technologies"
+                       value="Python" id="python">
+                <label for="python">Python</label>
+            </div>
+        </div>
+
+        <button class="form-button" type="submit">Отправить</button>
+    </form>
+
+   <div id="resultWrapper" class="result" hidden>
+    <button id="hideResult" type="button" class="hide-result">
+        ×
+    </button>
+    <div id="result"></div>
+</div>
+
+<script>
+    const form = document.querySelector("#studentForm");
+   const resultBlock = document.querySelector("#result");
+const resultWrapper = document.querySelector("#resultWrapper");
+
+document.querySelector("#hideResult").addEventListener("click", function () {
+    resultWrapper.hidden = true;
+    resultBlock.textContent = "";
+});
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        button.disabled = true;
+        button.textContent = "Отправка...";
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: new FormData(form)
+            });
+
+            if (!response.ok) {
+                throw new Error("Ошибка отправки: " + response.status);
+            }
+
+            const result = await response.text();
+
+            resultBlock.textContent = result;
+          resultWrapper.hidden = false;
+
+            // Очищаем поля только после успешного ответа сервера.
+            form.reset();
+            button.textContent = "Отправить";
+        } catch (error) {
+            resultBlock.textContent = "Не удалось отправить анкету. Попробуйте ещё раз.";
+           resultWrapper.hidden = false;
+            button.textContent = "Отправить";
+            console.error(error);
+        } finally {
+            button.disabled = false;
+        }
+    });
+</script>
