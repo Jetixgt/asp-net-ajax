@@ -182,4 +182,11 @@ white-space: pre-line;
 .student-card-header {
     margin-bottom: 20px;
 }
->>>>>>> b2868229fc6830b31bcff67278cf1961404b5fd6:wwwroot/css/site.css
+.group-label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.result[hidden] {
+    display: none;
+}
