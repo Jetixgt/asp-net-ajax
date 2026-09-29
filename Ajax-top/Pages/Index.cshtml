@@ -1,166 +1,201 @@
 ﻿@page
 @model IndexModel
+@* @{
+    Layout = null;
+    } *@
+
+@* @{
+    ViewData["Title"] = "Home page";
+    } *@
 
 <div class="form-container">
+
     <h1>Анкета студента</h1>
-    <p class="description">Введите свои данные</p>
 
-    <form id="studentForm" method="post">
+    <p class="description">
+        Введите свои данные
+    </p>
+
+    <form method="post">
+
         <div class="form-group">
-            <label for="name">Имя-фамилия:</label>
-            <input type="text" id="name" name="Name"
-                   placeholder="Введите имя" required>
+            <label>Имя-фамилия:</label>
+            <input type="text" name="Name" placeholder="Введите имя" required>
         </div>
 
         <div class="form-group">
-            <label for="phone">Номер телефона:</label>
-            <input type="tel" id="phone" name="Phone"
-                   placeholder="+7" required>
+            <label>Номер телефона:</label>
+            <input type="tel" name="Phone" placeholder="+7" required>
         </div>
 
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="Email"
-                   placeholder="email@example.com" required>
+            <label>Email:</label>
+            <input type="email" name="Email" placeholder="email@example.com" required>
         </div>
 
         <div class="form-group">
-            <p class="group-label">Специальность:</p>
+            <label>Специальность:</label>
 
             <div class="speciality">
-                <input type="radio" name="Speciality"
-                       value="Программирование" id="dev" required>
+
+                <input type="radio" name="Speciality" value="Программирование" id="dev">
                 <label for="dev">Программирование</label>
+
                 <br>
 
-                <input type="radio" name="Speciality"
-                       value="Дизайн" id="design">
+                <input type="radio" name="Speciality" value="Дизайн" id="design">
                 <label for="design">Дизайн</label>
+
                 <br>
 
-                <input type="radio" name="Speciality"
-                       value="Маркетинг" id="marketing">
+                <input type="radio" name="Speciality" value="Маркетинг" id="marketing">
                 <label for="marketing">Маркетинг</label>
+
             </div>
         </div>
-
         <div class="form-group">
-            <label for="course">Курс:</label>
-            <select name="Course" id="course" required>
-                <option value="" selected disabled>Выберите курс</option>
+            <label for="courses">Курс:</label>
+            <select name="Course" id="courses">
                 <option value="1 курс">1 курс</option>
                 <option value="2 курс">2 курс</option>
                 <option value="3 курс">3 курс</option>
                 <option value="4 курс">4 курс</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label for="city">Город:</label>
-            <select name="City" id="city" required>
-                <option value="" selected disabled>Выберите город</option>
-                <option value="Москва">Москва</option>
-                <option value="Санкт-Петербург">Санкт-Петербург</option>
-                <option value="Сочи">Сочи</option>
-                <option value="Казань">Казань</option>
-                <option value="Новосибирск">Новосибирск</option>
-            </select>
+            <label for="">Дата рождения:</label>
+            <input type="date" name="BirthDate" required>
         </div>
-
         <div class="form-group">
-            <label for="mainLanguage">Основной язык программирования:</label>
-            <select name="MainLanguage" id="mainLanguage" required>
-                <option value="" selected disabled>Выберите язык</option>
-                <option value="C#">C#</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="C++">C++</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="birthDate">Дата рождения:</label>
-            <input type="date" id="birthDate" name="BirthDate" required>
-        </div>
-
-        <div class="form-group">
-            <p class="group-label">Технологии:</p>
-
+            <label for="">Технологии:</label>
             <div class="speciality">
-                <input type="checkbox" name="Technologies"
-                       value="HTML/CSS" id="html">
+                <input type="checkbox" name="Technologies" value="HTML/CSS" id="html">
                 <label for="html">HTML/CSS</label>
                 <br>
-
-                <input type="checkbox" name="Technologies"
-                       value="JavaScript" id="js">
+                <input type="checkbox" name="Technologies" value="JavaScript" id="js">
                 <label for="js">JavaScript</label>
                 <br>
-
-                <input type="checkbox" name="Technologies"
-                       value="C#" id="csharp">
+                <input type="checkbox" name="Technologies" value="C#" id="csharp">
                 <label for="csharp">C#</label>
                 <br>
-
-                <input type="checkbox" name="Technologies"
-                       value="Python" id="python">
+                <input type="checkbox" name="Technologies" value="Python" id="python">
                 <label for="python">Python</label>
             </div>
         </div>
-
-        <button class="form-button" type="submit">Отправить</button>
+        <button class="form-button" type="submit">
+            Отправить
+        </button>
+        <button class="clear-button" type="reset">
+            Очистить
+        </button>
     </form>
 
-   <div id="resultWrapper" class="result" hidden>
-    <button id="hideResult" type="button" class="hide-result">
-        ×
-    </button>
-    <div id="result"></div>
+    <div id="status" class="status"></div>
+    @* <h1>Расширить анкету. Добавить:</h1>
+        <h2>1. Выбор города через select</h2>
+        <h2>2. Выбор основного языка программирования</h2>
+        <h2>3. Формат обучения (очно, заочно, дистанционное)</h2>
+        <h2>4. Инфомация о себе через тег textarea</h2>
+        <h2>5. Дополнить список технологий</h2> *@
+
+    <div id="result" class="student-card">
+        <div class="student-card-header">
+            <h2>Анкета отправлена</h2>
+            <p>Данные студента</p>
+        </div>
+        <div class="student-info">
+            <div class="info-item">
+                <span>Имя: </span>
+                <strong id="result-name"></strong>
+            </div>
+            <div class="info-item">
+                <span>Телефон: </span>
+                <strong id="result-phone"></strong>
+            </div>
+            <div class="info-item">
+                <span>Email: </span>
+                <strong id="result-email"></strong>
+            </div>
+            <div class="info-item">
+                <span>Специальность: </span>
+                <strong id="result-speciality"></strong>
+            </div>
+            <div class="info-item">
+                <span>Курс: </span>
+                <strong id="result-course"></strong>
+            </div>
+            <div class="info-item">
+                <span>Дата рождения: </span>
+                <strong id="result-birthdate"></strong>
+            </div>
+            <div class="info-item">
+                <span>Технологии: </span>
+                <strong id="result-technologies"></strong>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Message != null)
+    {
+        <div class="result">
+            <h3>Данные анкеты:</h3>
+
+            <p style="white-space: pre-line;">
+                @Model.Message
+            </p>
+        </div>
+    }
+
 </div>
 
 <script>
-    const form = document.querySelector("#studentForm");
-   const resultBlock = document.querySelector("#result");
-const resultWrapper = document.querySelector("#resultWrapper");
-
-document.querySelector("#hideResult").addEventListener("click", function () {
-    resultWrapper.hidden = true;
-    resultBlock.textContent = "";
-});
-    const button = form.querySelector('button[type="submit"]');
+    const form = document.querySelector("form");
 
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
+        const button = form.querySelector("button[type='submit']");
+        const status = document.querySelector('#status');
+        const formData = new FormData(form);
         button.disabled = true;
         button.textContent = "Отправка...";
 
         try {
-            const response = await fetch(form.action, {
+            const response = await fetch("", {
                 method: "POST",
-                body: new FormData(form)
+                body: formData
             });
 
             if (!response.ok) {
-                throw new Error("Ошибка отправки: " + response.status);
+                throw new Error('Ошибка сервера');
             }
 
-            const result = await response.text();
+            const data = await response.json();
+            await new Promise(resolve => setTimeout(resolve, 1500));
 
-            resultBlock.textContent = result;
-          resultWrapper.hidden = false;
+            document.querySelector("#result-name").textContent = data.Name;
+            document.querySelector("#result-phone").textContent = data.Phone;
+            document.querySelector("#result-email").textContent = data.Email;
+            document.querySelector("#result-speciality").textContent = data.Speciality;
+            document.querySelector("#result-course").textContent = data.Course;
+            document.querySelector("#result-birthdate").textContent = data.BirthDate;
+            document.querySelector("#result-technologies").textContent = data.Technologies;
 
-            // Очищаем поля только после успешного ответа сервера.
-            form.reset();
-            button.textContent = "Отправить";
+            console.log(data);
+            document.querySelector("#result").style.display = "block";
+            button.disabled = false;
+            button.textContent = "Анкета успешно отправлена";
         } catch (error) {
-            resultBlock.textContent = "Не удалось отправить анкету. Попробуйте ещё раз.";
-           resultWrapper.hidden = false;
-            button.textContent = "Отправить";
-            console.error(error);
+            status.textContent = "Не удалось отправить анкету";
         } finally {
             button.disabled = false;
+            button.textContent = "Отправить"
         }
     });
+
+    form.addEventListener("reset", function() {
+        document.querySelector("#result").style.display = "none";
+        document.querySelector("#status").textContent = "";
+    });
+
 </script>
