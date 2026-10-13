@@ -1,15 +1,36 @@
 ﻿@page
 @model IndexModel
-@* @{
-    Layout = null;
-    } *@
+@{
+    ViewData["Title"] = "Анкета студента";
+}
 
-@* @{
-    ViewData["Title"] = "Home page";
-    } *@
+<div class="home-page">
+    <section class="home-hero" id="about">
+        <p class="home-label">COLLEGEJOB</p>
+        <h1>Расскажи о себе и своих навыках</h1>
+        <p>Заполни анкету, чтобы представить свою специальность, опыт и технологии, которыми владеешь.</p>
+        <div class="home-actions">
+            <a class="home-button" href="#form">Заполнить анкету</a>
+            <a class="home-button home-button-secondary" href="#features">Что указать</a>
+        </div>
+    </section>
 
-<div class="form-container">
+    <section class="home-features" id="features" aria-label="О анкете">
+        <article class="home-feature">
+            <h2>Расскажи о себе</h2>
+            <p>Укажи контактные данные, специальность и курс обучения.</p>
+        </article>
+        <article class="home-feature">
+            <h2>Покажи навыки</h2>
+            <p>Отметь технологии, с которыми уже умеешь работать.</p>
+        </article>
+        <article class="home-feature">
+            <h2>Отправь анкету</h2>
+            <p>Проверь введённые данные в карточке после отправки.</p>
+        </article>
+    </section>
 
+    <section class="form-container" id="form">
     <h1>Анкета студента</h1>
 
     <p class="description">
@@ -146,6 +167,7 @@
         </div>
     }
 
+    </section>
 </div>
 
 <script>
