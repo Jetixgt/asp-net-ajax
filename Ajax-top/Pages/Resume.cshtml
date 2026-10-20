@@ -1,0 +1,60 @@
+@page
+@model ResumeModel
+
+@if (Model.Resume is null)
+{
+    <div class="resume-detail-page">
+        <p>Резюме не найдено.</p>
+    </div>
+}
+else
+{
+    <div class="resume-detail-page">
+        <a class="resume-back-link" asp-page="/Resumes">
+            Вернуться в каталог
+        </a>
+
+        <article class="resume-detail-card">
+            <p class="resume-speciality">
+                @Model.Resume.Speciality
+            </p>
+            <h1>@Model.Resume.Name</h1>
+            <p class="resume-course">@Model.Resume.Course</p>
+            <section class="resume-detail-section">
+                <h2>Контактная информация</h2>
+                <p>
+                    <strong>Email:</strong>
+                    @Model.Resume.Email
+                </p>
+                <p>
+                    <strong>Телефон:</strong>
+                    @Model.Resume.Phone
+                </p>
+                <p>
+                    <strong>Дата рождения:</strong>
+                    @(string.IsNullOrWhiteSpace(Model.Resume.BirthDate)
+                    ? "Не указана" : Model.Resume.BirthDate)
+                </p>
+            </section>
+            <section class="resume-detail-section">
+                <h2>Технологии и навыки</h2>
+                @if (Model.Resume.Technologies.Length > 0)
+                {
+                    <div class="resume-skills">
+                        @foreach (var technology in Model.Resume.Technologies)
+                        {
+                            <span class="resume-skill">
+                                @technology
+                            </span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>Навыки не указаны</p>
+                }
+            </section>
+            <a class="home-button" asp-page="/Resumes">Вернуться к каталогу резюме</a>
+        </article>
+    </div>
+}

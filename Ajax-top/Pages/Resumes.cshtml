@@ -1,0 +1,68 @@
+@page
+@model ResumesModel
+
+<div class="resumes-page">
+    <div class="resumes-heading">
+        <div>
+            <p class="home-label">
+                COLLEGEJOB
+            </p>
+            <h1>Каталог резюме</h1>
+            <p>Знакомься со специалистами
+                и их навыками
+            </p>
+        </div>
+
+        <a class="home-button" asp-page="/CreateResume">
+            Создать резюме
+        </a>
+    </div>
+
+    <p class="resumes-count">
+        Всего резюме:
+        @Model.Students.Count
+    </p>
+
+    @if (Model.Students.Count == 0)
+    {
+        <div class="resume-empty">
+            <h2>Пока нет резюме</h2>
+            <p>Стань первым - заполни анкету</p>
+            <a asp-page="/CreateResume">Создать первое резюме</a>
+        </div>
+    }
+    else
+    {
+        <div class="resumes-grid">
+            @foreach (var student in Model.Students)
+            {
+                <article class="resume-card">
+                    <p class="resume-speciality">
+                        @student.Speciality
+                    </p>
+                    <h2>@student.Name</h2>
+                    <p>@student.Course</p>
+                    <div class="resume-details">
+                        <p>
+                            <strong>Email:</strong>
+                            @student.Email
+                        </p>
+                        <p>
+                            <strong>Телефон:</strong>
+                            @student.Phone
+                        </p>
+                        <p>
+                            <strong>Технологии:</strong>
+                            @(student.Technologies.Length > 0 ?
+                            string.Join(", ", student.Technologies)
+                            : "Не указаны")
+                        </p>
+                    </div>
+                    <a class="resume-details-button" asp-page="/Resume"
+                    asp-route-id="@student.Id">Подробнее</a>
+                </article>
+            }
+        </div>
+    }
+
+</div>

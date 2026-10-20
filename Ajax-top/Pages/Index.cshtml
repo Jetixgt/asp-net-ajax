@@ -1,223 +1,44 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Анкета студента";
-}
 
 <div class="home-page">
-    <section class="home-hero" id="about">
+    <section class="home-hero">
         <p class="home-label">COLLEGEJOB</p>
-        <h1>Расскажи о себе и своих навыках</h1>
-        <p>Заполни анкету, чтобы представить свою специальность, опыт и технологии, которыми владеешь.</p>
+        <h1>Твой следующий шаг в карьере</h1>
+        <p>Публикуй резюме, расскажи о своих навыках
+            и получи возможности для профессионального роста
+        </p>
         <div class="home-actions">
-            <a class="home-button" href="#form">Заполнить анкету</a>
-            <a class="home-button home-button-secondary" href="#features">Что указать</a>
+            <a class="home-button" asp-page="/Resumes">
+                Смотреть резюме
+            </a>
+            <a class="home-button home-button-secondary" 
+            asp-page="/CreateResume">
+                Создать резюме
+            </a>
         </div>
     </section>
-
-    <section class="home-features" id="features" aria-label="О анкете">
+    <section class="home-features">
         <article class="home-feature">
-            <h2>Расскажи о себе</h2>
-            <p>Укажи контактные данные, специальность и курс обучения.</p>
-        </article>
-        <article class="home-feature">
-            <h2>Покажи навыки</h2>
-            <p>Отметь технологии, с которыми уже умеешь работать.</p>
-        </article>
-        <article class="home-feature">
-            <h2>Отправь анкету</h2>
-            <p>Проверь введённые данные в карточке после отправки.</p>
-        </article>
-    </section>
-
-    <section class="form-container" id="form">
-    <h1>Анкета студента</h1>
-
-    <p class="description">
-        Введите свои данные
-    </p>
-
-    <form method="post">
-
-        <div class="form-group">
-            <label>Имя-фамилия:</label>
-            <input type="text" name="Name" placeholder="Введите имя" required>
-        </div>
-
-        <div class="form-group">
-            <label>Номер телефона:</label>
-            <input type="tel" name="Phone" placeholder="+7" required>
-        </div>
-
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="email" name="Email" placeholder="email@example.com" required>
-        </div>
-
-        <div class="form-group">
-            <label>Специальность:</label>
-
-            <div class="speciality">
-
-                <input type="radio" name="Speciality" value="Программирование" id="dev">
-                <label for="dev">Программирование</label>
-
-                <br>
-
-                <input type="radio" name="Speciality" value="Дизайн" id="design">
-                <label for="design">Дизайн</label>
-
-                <br>
-
-                <input type="radio" name="Speciality" value="Маркетинг" id="marketing">
-                <label for="marketing">Маркетинг</label>
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="courses">Курс:</label>
-            <select name="Course" id="courses">
-                <option value="1 курс">1 курс</option>
-                <option value="2 курс">2 курс</option>
-                <option value="3 курс">3 курс</option>
-                <option value="4 курс">4 курс</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="">Дата рождения:</label>
-            <input type="date" name="BirthDate" required>
-        </div>
-        <div class="form-group">
-            <label for="">Технологии:</label>
-            <div class="speciality">
-                <input type="checkbox" name="Technologies" value="HTML/CSS" id="html">
-                <label for="html">HTML/CSS</label>
-                <br>
-                <input type="checkbox" name="Technologies" value="JavaScript" id="js">
-                <label for="js">JavaScript</label>
-                <br>
-                <input type="checkbox" name="Technologies" value="C#" id="csharp">
-                <label for="csharp">C#</label>
-                <br>
-                <input type="checkbox" name="Technologies" value="Python" id="python">
-                <label for="python">Python</label>
-            </div>
-        </div>
-        <button class="form-button" type="submit">
-            Отправить
-        </button>
-        <button class="clear-button" type="reset">
-            Очистить
-        </button>
-    </form>
-
-    <div id="status" class="status"></div>
-    @* <h1>Расширить анкету. Добавить:</h1>
-        <h2>1. Выбор города через select</h2>
-        <h2>2. Выбор основного языка программирования</h2>
-        <h2>3. Формат обучения (очно, заочно, дистанционное)</h2>
-        <h2>4. Инфомация о себе через тег textarea</h2>
-        <h2>5. Дополнить список технологий</h2> *@
-
-    <div id="result" class="student-card">
-        <div class="student-card-header">
-            <h2>Анкета отправлена</h2>
-            <p>Данные студента</p>
-        </div>
-        <div class="student-info">
-            <div class="info-item">
-                <span>Имя: </span>
-                <strong id="result-name"></strong>
-            </div>
-            <div class="info-item">
-                <span>Телефон: </span>
-                <strong id="result-phone"></strong>
-            </div>
-            <div class="info-item">
-                <span>Email: </span>
-                <strong id="result-email"></strong>
-            </div>
-            <div class="info-item">
-                <span>Специальность: </span>
-                <strong id="result-speciality"></strong>
-            </div>
-            <div class="info-item">
-                <span>Курс: </span>
-                <strong id="result-course"></strong>
-            </div>
-            <div class="info-item">
-                <span>Дата рождения: </span>
-                <strong id="result-birthdate"></strong>
-            </div>
-            <div class="info-item">
-                <span>Технологии: </span>
-                <strong id="result-technologies"></strong>
-            </div>
-        </div>
-    </div>
-
-    @if (Model.Message != null)
-    {
-        <div class="result">
-            <h3>Данные анкеты:</h3>
-
-            <p style="white-space: pre-line;">
-                @Model.Message
+            <h2>Создай резюме</h2>
+            <p>
+                Расскажи о себе, специальности
+                и технологиях, которыми владеешь.
             </p>
-        </div>
-    }
-
+        </article>
+        <article class="home-feature">
+            <h2>Изучи кандидатов</h2>
+            <p>
+                Просматривай анкеты и найди 
+                специалиста с нужными навыками.
+            </p>
+        </article>
+        <article class="home-feature">
+            <h2>Развивайся</h2>
+            <p>
+                Используй платформу как первый шаг
+                к поиску стажировки или работы.
+            </p>
+        </article>
     </section>
 </div>
-
-<script>
-    const form = document.querySelector("form");
-
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const button = form.querySelector("button[type='submit']");
-        const status = document.querySelector('#status');
-        const formData = new FormData(form);
-        button.disabled = true;
-        button.textContent = "Отправка...";
-
-        try {
-            const response = await fetch("", {
-                method: "POST",
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Ошибка сервера');
-            }
-
-            const data = await response.json();
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            document.querySelector("#result-name").textContent = data.Name;
-            document.querySelector("#result-phone").textContent = data.Phone;
-            document.querySelector("#result-email").textContent = data.Email;
-            document.querySelector("#result-speciality").textContent = data.Speciality;
-            document.querySelector("#result-course").textContent = data.Course;
-            document.querySelector("#result-birthdate").textContent = data.BirthDate;
-            document.querySelector("#result-technologies").textContent = data.Technologies;
-
-            console.log(data);
-            document.querySelector("#result").style.display = "block";
-            button.disabled = false;
-            button.textContent = "Анкета успешно отправлена";
-        } catch (error) {
-            status.textContent = "Не удалось отправить анкету";
-        } finally {
-            button.disabled = false;
-            button.textContent = "Отправить"
-        }
-    });
-
-    form.addEventListener("reset", function() {
-        document.querySelector("#result").style.display = "none";
-        document.querySelector("#status").textContent = "";
-    });
-
-</script>

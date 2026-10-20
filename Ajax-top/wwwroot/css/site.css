@@ -13,16 +13,15 @@ body {
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
-    color: #171717;
-    background:
-        linear-gradient(rgba(12, 18, 30, 0.46), rgba(12, 18, 30, 0.6)),
-        url("/images/student-background.png") center / cover fixed;
+    color: #111827;
+    background: linear-gradient(180deg, #f5f7ff 0%, #eef4ff 100%);
 }
 
 .site-header {
     width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #e9e9e9;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #dfe7ff;
+    box-shadow: 0 2px 12px rgba(37, 99, 235, 0.08);
 }
 
 .header-container,
@@ -88,6 +87,11 @@ body {
     margin: 0 auto 42px;
     color: #fff;
     text-align: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(37, 99, 235, 0.18);
+    padding: 46px 30px;
 }
 
 .home-label {
@@ -102,12 +106,13 @@ body {
     margin: 0 0 16px;
     font-size: clamp(32px, 5vw, 48px);
     line-height: 1.1;
+    color: #ffffff;
 }
 
 .home-hero > p:not(.home-label) {
     max-width: 610px;
     margin: 0 auto;
-    color: #f0f2f7;
+    color: #e2e8f0;
     font-size: 18px;
     line-height: 1.6;
 }
@@ -161,20 +166,21 @@ body {
 
 .home-feature {
     padding: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid #d8e2ff;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 10px 24px rgba(30, 64, 175, 0.08);
 }
 
 .home-feature h2 {
     margin: 0 0 9px;
     font-size: 19px;
+    color: #1e3a8a;
 }
 
 .home-feature p {
     margin: 0;
-    color: #666;
+    color: #475569;
     font-size: 15px;
     line-height: 1.5;
 }
@@ -183,9 +189,10 @@ body {
     width: min(570px, 100%);
     margin: 0 auto 45px;
     padding: 35px;
+    border: 1px solid #dbe3ff;
     border-radius: 20px;
-    background: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    box-shadow: 0 14px 35px rgba(37, 99, 235, 0.1);
     font-size: 16px;
 }
 
@@ -294,13 +301,14 @@ body {
     margin-top: 25px;
     padding: 20px;
     border-radius: 12px;
-    background: #f5f6fa;
+    background: #f8faff;
+    border: 1px solid #dfe9ff;
     text-align: left;
 }
 
 .student-card {
     display: none;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.08);
 }
 
 .student-card-header {
