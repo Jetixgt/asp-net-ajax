@@ -18,6 +18,31 @@
         </a>
     </div>
 
+    <form method="get" class="resume-search-form">
+        <div class="search-field">
+            <label for="Search">Поиск по имени</label>
+            <input id="Search" type="text" name="Search" value="@Model.Search"
+                   placeholder="Введите имя кандидата" />
+        </div>
+        <div class="search-field">
+            <label for="SpecialityFilter">Специальность</label>
+            <select id="SpecialityFilter" name="SpecialityFilter">
+                <option value="">Все специальности</option>
+                @foreach (var speciality in Model.Specialities)
+                {
+                    <option value="@speciality"
+                            selected="@(speciality == Model.SpecialityFilter)">
+                        @speciality
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="search-actions">
+            <button class="home-button" type="submit">Найти</button>
+            <a class="search-reset" asp-page="/Resumes">Сбросить</a>
+        </div>
+    </form>
+
     <p class="resumes-count">
         Всего резюме:
         @Model.Students.Count
