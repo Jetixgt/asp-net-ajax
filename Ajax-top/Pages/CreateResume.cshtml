@@ -83,7 +83,7 @@
                 <label for="python">Python</label>
             </div>
         </div>
-        <p>text</p>
+
         <button class="form-button" type="submit">
             Отправить
         </button>
@@ -133,20 +133,9 @@
 
     </div>
 
-    @if (Model.Message != null)
-    {
-        <div class="result">
-            <h3>Данные анкеты:</h3>
-
-            <p style="white-space: pre-line;">
-                @Model.Message
-            </p>
-        </div>
-    }
-
-    @* СПИСОК ВСЕХ СТУДЕНТОВ *@
+    @* СПИСОК МОИХ РЕЗЮМЕ *@
     <div class="students-section">
-        <h2>Список студентов</h2>
+        <h2>Мои резюме</h2>
         <div id="students-list"></div>
     </div>
 </div>
@@ -208,6 +197,13 @@
             }
         });
 
+    @* ЗАЩИТА ОТ ВСТАВКИ HTML В КАРТОЧКИ *@
+        function escapeHtml(value) {
+            const div = document.createElement("div");
+            div.textContent = value ?? "";
+            return div.innerHTML;
+        }
+
     @* ПОЛУЧЕНИЕ СПИСКА СТУДЕНТОВ *@
         async function loadStudents() {
             try {
@@ -229,10 +225,10 @@
                     <div class="student-card-header">
                         <div>
                             <h2>
-                                ${student.name}
+                                ${escapeHtml(student.name)}
                             </h2>
                             <p>
-                                ${student.speciality}
+                                ${escapeHtml(student.speciality)}
                             </p>
                         </div>
                     </div>
@@ -242,7 +238,7 @@
                                 Телефон: 
                             </span>
                             <strong>
-                                ${student.phone}
+                                ${escapeHtml(student.phone)}
                             </strong>
                         </div>
                         <div class="info-item">
@@ -250,7 +246,7 @@
                                 Email: 
                             </span>
                             <strong>
-                                ${student.email}
+                                ${escapeHtml(student.email)}
                             </strong>
                         </div>
                         <div class="info-item">
@@ -258,7 +254,7 @@
                                 Курс: 
                             </span>
                             <strong>
-                                ${student.course}
+                                ${escapeHtml(student.course)}
                             </strong>
                         </div>
                         <div class="info-item">
@@ -266,7 +262,7 @@
                                 Дата рождения: 
                             </span>
                             <strong>
-                                ${student.birthDate}
+                                ${escapeHtml(student.birthDate)}
                             </strong>
                         </div>
                         <div class="info-item">
@@ -274,7 +270,7 @@
                                 Технологии: 
                             </span>
                             <strong>
-                                ${student.technologies.join(", ")}
+                                ${escapeHtml(student.technologies.join(", "))}
                             </strong>
                         </div>
                     </div>

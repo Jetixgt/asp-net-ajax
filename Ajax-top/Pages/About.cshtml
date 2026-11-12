@@ -1,0 +1,58 @@
+@page
+@{
+    ViewData["Title"] = "О проекте";
+}
+
+<div class="home-page">
+    <section class="home-hero">
+        <p class="home-label">О ПРОЕКТЕ</p>
+        <h1>CollegeJob — первый шаг к карьере</h1>
+        <p>
+            Учебная платформа, где студенты могут рассказать о своих навыках,
+            а работодатели и другие пользователи — познакомиться с кандидатами.
+        </p>
+        <div class="home-actions">
+            <a class="home-button" asp-page="/Resumes">Открыть каталог резюме</a>
+            <a class="home-button home-button-secondary" asp-page="/CreateResume">
+                Создать резюме
+            </a>
+        </div>
+    </section>
+
+    <section class="home-features" aria-label="Возможности проекта">
+        <article class="home-feature">
+            <h2>Расскажи о себе</h2>
+            <p>
+                Добавь контактные данные, специальность, курс и технологии,
+                которыми владеешь.
+            </p>
+        </article>
+        <article class="home-feature">
+            <h2>Найди подходящих кандидатов</h2>
+            <p>
+                Просматривай каталог резюме, ищи по имени и фильтруй
+                анкеты по специальности.
+            </p>
+        </article>
+        <article class="home-feature">
+            <h2>Обновляй резюме</h2>
+            <p>
+                Открой карточку резюме, чтобы изменить информацию и навыки,
+                когда у тебя появится новый опыт.
+            </p>
+        </article>
+    </section>
+
+    <section class="home-feature">
+        <h2>О проекте</h2>
+        <p>
+            CollegeJob создан как учебный проект на ASP.NET Core Razor Pages.
+            Он знакомит с основами создания веб-приложений: страницами,
+            формами, обработкой данных и навигацией.
+        </p>
+        <p>
+            Сейчас данные резюме хранятся в памяти приложения и сбрасываются
+            при его перезапуске.
+        </p>
+    </section>
+</div>

@@ -1,20 +1,34 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using aspnetWebApp.Data;
 using aspnetWebApp.Models;
 
 namespace aspnetWebApp.Pages;
 
 public class ResumeModel : PageModel
 {
-    public Student? Resume { get; set; }
-    public IActionResult OnGet(int id)
+    private readonly ApplicationDbContext _db;
+
+    public ResumeModel(ApplicationDbContext db)
     {
-        Resume = CreateResumeModel.Students
-        .FirstOrDefault(student => student.Id == id);
+        _db = db;
+    }
+
+    public Student? Resume { get; set; }
+
+    // может ли текущий пользователь редактировать это резюме
+    public bool CanEdit { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int id)
+    {
+        Resume = await _db.Students.FirstOrDefaultAsync(student => student.Id == id);
         if (Resume == null)
         {
             return NotFound();
         }
+        CanEdit = Resume.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier);
         return Page();
     }
 }

@@ -83,8 +83,15 @@
                             : "Не указаны")
                         </p>
                     </div>
-                    <a class="resume-details-button" asp-page="/Resume"
-                    asp-route-id="@student.Id">Подробнее</a>
+                    <div class="resume-card-actions">
+                        <a class="resume-details-button" asp-page="/Resume"
+                           asp-route-id="@student.Id">Подробнее</a>
+                        @if (student.UserId == Model.CurrentUserId)
+                        {
+                            <a class="resume-details-button" asp-page="/EditResume"
+                               asp-route-id="@student.Id">Редактировать</a>
+                        }
+                    </div>
                 </article>
             }
         </div>

@@ -1,0 +1,88 @@
+@page
+@model EditResumeModel
+
+<div class="form-container">
+    <h1>Редактирование резюме</h1>
+    <p class="description">Измените данные и сохраните обновленное резюме</p>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" value="@Model.Resume?.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name">Имя-фамилия:</label>
+            <input asp-for="Name" type="text" placeholder="Введите имя" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone">Номер телефона:</label>
+            <input asp-for="Phone" type="tel" placeholder="+7" required />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email">Email:</label>
+            <input asp-for="Email" type="email" placeholder="email@example.com" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Специальность:</label>
+            <div class="speciality">
+                <input asp-for="Speciality" type="radio" value="Программирование" id="dev" />
+                <label for="dev">Программирование</label>
+                <br />
+                <input asp-for="Speciality" type="radio" value="Дизайн" id="design" />
+                <label for="design">Дизайн</label>
+                <br />
+                <input asp-for="Speciality" type="radio" value="Маркетинг" id="marketing" />
+                <label for="marketing">Маркетинг</label>
+            </div>
+            <span asp-validation-for="Speciality" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Course">Курс:</label>
+            <select asp-for="Course" required>
+                <option value="">Выберите курс</option>
+                <option value="1 курс">1 курс</option>
+                <option value="2 курс">2 курс</option>
+                <option value="3 курс">3 курс</option>
+                <option value="4 курс">4 курс</option>
+            </select>
+            <span asp-validation-for="Course" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BirthDate">Дата рождения:</label>
+            <input asp-for="BirthDate" type="date" required />
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Технологии:</label>
+            <div class="speciality">
+                <input type="checkbox" name="Technologies" value="HTML/CSS"
+                       id="html" checked="@Model.Technologies.Contains("HTML/CSS")" />
+                <label for="html">HTML/CSS</label>
+                <br />
+                <input type="checkbox" name="Technologies" value="JavaScript"
+                       id="js" checked="@Model.Technologies.Contains("JavaScript")" />
+                <label for="js">JavaScript</label>
+                <br />
+                <input type="checkbox" name="Technologies" value="C#"
+                       id="csharp" checked="@Model.Technologies.Contains("C#")" />
+                <label for="csharp">C#</label>
+                <br />
+                <input type="checkbox" name="Technologies" value="Python"
+                       id="python" checked="@Model.Technologies.Contains("Python")" />
+                <label for="python">Python</label>
+            </div>
+        </div>
+
+        <button class="form-button" type="submit">Сохранить изменения</button>
+        <a class="search-reset" asp-page="/Resume" asp-route-id="@Model.Resume?.Id">Отмена</a>
+    </form>
+</div>

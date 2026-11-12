@@ -1,79 +1,106 @@
-// using System.Text.Json;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using aspnetWebApp.Data;
 using aspnetWebApp.Models;
 
 namespace aspnetWebApp.Pages;
 
+// создавать резюме могут только вошедшие пользователи
+[Authorize]
 public class CreateResumeModel : PageModel
 {
+    private readonly ApplicationDbContext _db;
+
+    public CreateResumeModel(ApplicationDbContext db)
+    {
+        _db = db;
+    }
+
     [BindProperty]
-    public required string Name { get; set; }
+    public string Name { get; set; } = "";
     [BindProperty]
-    public required string Phone { get; set; }
+    public string Phone { get; set; } = "";
     [BindProperty]
-    public required string Email { get; set; }
+    public string Email { get; set; } = "";
     [BindProperty]
-    public required string Speciality { get; set; }
+    public string Speciality { get; set; } = "";
     [BindProperty]
-    public required string Course { get; set; }
+    public string Course { get; set; } = "";
     [BindProperty]
-    public required string BirthDate { get; set; }
+    public string BirthDate { get; set; } = "";
     [BindProperty]
     public string[] Technologies { get; set; } = Array.Empty<string>();
-    public static List<Student> Students { get; set; } = new();
-    public required string Message { get; set; }
+
+    private string CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
     public void OnGet()
     {
-        // Message = "Привет! Сообщение от C#";
     }
-    public IActionResult OnPost() {
 
-        string technologies = Technologies.Length > 0
-            ? string.Join(", ", Technologies)
-            : "Не выбраны";
-
-        // string message = $"Анкета студента\n\n" +
-        //         $"Имя: {Name}\n" + 
-        //         $"Телефон: {Phone}\n" +
-        //         $"Email: {Email}\n" +
-        //         $"Специальность: {Speciality}\n" +
-        //         $"Курс: {Course}\n" +
-        //         $"Дата рождения: {BirthDate}\n" +
-        //         $"Технологии: {technologies}";
-
+    public async Task<IActionResult> OnPostAsync()
+    {
         var student = new Student
         {
-            Id = Students.Any() ? Students.Max(x => x.Id) + 1 : 1,
             Name = Name,
             Phone = Phone,
             Email = Email,
             Speciality = Speciality,
             Course = Course,
             BirthDate = BirthDate,
-            Technologies = Technologies
+            Technologies = Technologies,
+            UserId = CurrentUserId
         };
 
-        Students.Add(student);
+        _db.Students.Add(student);
+        await _db.SaveChangesAsync();
 
-        return new JsonResult(student);
+        return new JsonResult(ToDto(student));
     }
 
-    public IActionResult OnGetStudents() {
-        return new JsonResult(Students);
+    // резюме текущего пользователя
+    public async Task<IActionResult> OnGetStudentsAsync()
+    {
+        var students = await _db.Students
+            .Where(student => student.UserId == CurrentUserId)
+            .OrderBy(student => student.Id)
+            .ToListAsync();
+
+        return new JsonResult(students.Select(ToDto));
     }
 
-    public IActionResult OnPostDelete(int id) {
-        var student = Students.FirstOrDefault(x => x.Id == id);
-        if (student == null) {
-            return new JsonResult(new{
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
+    {
+        var student = await _db.Students
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == CurrentUserId);
+        if (student == null)
+        {
+            return new JsonResult(new
+            {
                 success = false,
                 message = "Студент не найден"
             });
         }
-        Students.Remove(student);
-        return new JsonResult(new{
+
+        _db.Students.Remove(student);
+        await _db.SaveChangesAsync();
+        return new JsonResult(new
+        {
             success = true
         });
     }
+
+    private static object ToDto(Student s) => new
+    {
+        s.Id,
+        s.Name,
+        s.Phone,
+        s.Email,
+        s.Speciality,
+        s.Course,
+        s.BirthDate,
+        s.Technologies
+    };
 }

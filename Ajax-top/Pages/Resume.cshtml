@@ -54,7 +54,14 @@ else
                     <p>Навыки не указаны</p>
                 }
             </section>
-            <a class="home-button" asp-page="/Resumes">Вернуться к каталогу резюме</a>
+            <div class="resume-detail-actions">
+                @if (Model.CanEdit)
+                {
+                    <a class="home-button" asp-page="/EditResume"
+                       asp-route-id="@Model.Resume.Id">Редактировать резюме</a>
+                }
+                <a class="resume-back-link" asp-page="/Resumes">Вернуться к каталогу резюме</a>
+            </div>
         </article>
     </div>
 }
